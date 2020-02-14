@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title th:text="${role.id} ? 'Edit Role' : 'Add Role'"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/all.min.css}">
+</head>
+<body>
+    <div class="container my-5">
+        <h3 th:text="${role.id} ? 'Edit Role' : 'Add Role'"></h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form th:action="@{/role/save}" th:object="${role}" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">Name</label>
+                                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name"
+                                       th:classappend="${#fields.hasErrors('name')} ? 'border-danger' : ''"/>
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">Description</label>
+                                <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description"
+                                       th:classappend="${#fields.hasErrors('description')} ? 'border-danger' : ''"/>
+                                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</span>
+                            </div>
+                            <div class="form-group form-check col-md-8">
+                                <label for="name" class="col-form-label">Active</label>
+                                <input type="checkbox" name="active" th:checked="${role.active}"/>
+                                <span th:if="${#fields.hasErrors('active')}" th:errors="*{active}">Name Error</span>
+                            </div>
+
+                            <div class="col-md-8">
+                                <input type="submit" class="btn btn-primary" value="Submit"/>
+                            </div>
+
+                            <input type="hidden" id="id" th:field="*{id}"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
