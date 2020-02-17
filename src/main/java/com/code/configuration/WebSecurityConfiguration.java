@@ -30,7 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/static/**", "/css/**","/fontawesome/**", "/ionicons/**", "/js/**").permitAll()
+                .antMatchers("/resources/**", "/static/**", "/css/**","/fontawesome/**", "/fonts/**",
+                        "/img/**", "/ionicons/**", "/js/**").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/admin/").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
