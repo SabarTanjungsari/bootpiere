@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"", "/"})
+    @RequestMapping(value = {"/"})
     public String getAlluser(Model model) {
         List<User> userList = userService.getAllUser();
         model.addAttribute("userList", userList);

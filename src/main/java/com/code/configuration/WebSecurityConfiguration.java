@@ -14,50 +14,41 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private MyUserDetailsService customUserDetailsService;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);
+                .userDetailsService(customUserDetailsService)
+                .passwordEncoder(passwordEncoder);
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        String loginPage = "/login";
-        String logoutPage = "/logout";
-
-        http.
-                authorizeRequests()
+    public void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/resources/**", "/static/**", "/css/**","/fontawesome/**", "/ionicons/**", "/js/**").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers(loginPage).permitAll()
-                .antMatchers("/user/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and().csrf().disable()
+                .antMatchers("/admin/").hasAuthority("ADMIN")
+                .anyRequest().authenticated();
+        http
                 .formLogin()
-                .loginPage(loginPage)
-                //.loginPage("/")
-                .failureUrl("/login?error=true")
+                .loginPage("/login")
                 .defaultSuccessUrl("/home")
+                .failureUrl("/login?error")
                 .usernameParameter("name")
                 .passwordParameter("password")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
-                .logoutSuccessUrl(loginPage).and().exceptionHandling();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception{
-        web
-                .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .permitAll();
+        http
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
+        http
+                .exceptionHandling()
+                .accessDeniedPage("/accesDenied");
     }
 }
