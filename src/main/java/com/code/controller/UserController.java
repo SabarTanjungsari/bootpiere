@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @RequestMapping(path = {"/add", "/edit/{id}"})
-    public String addOrEdituser(Model model, @PathVariable("id") Optional<Long> id)  {
+    public String addOrEditUser(Model model, @PathVariable("id") Optional<Long> id)  {
         List<Role> roleList = roleService.getAllRole();
         model.addAttribute("roleList", roleList);
         if(id.isPresent()){
@@ -61,6 +62,17 @@ public class UserController {
         }
 
         return "redirect:/user/";
+    }
+
+    @RequestMapping(path = {"/detail/{id}"})
+    public String detailUser(Model model, @PathVariable("id") Optional<Long> id)  {
+        User user = userService.getUserById(id.get());
+        model.addAttribute("user", user);
+
+        Set<Role> userRoles = user.getRoles();
+        model.addAttribute("userRoles", userRoles);
+
+        return "userDetail";
     }
 
     @RequestMapping(path = "/delete/{id}")

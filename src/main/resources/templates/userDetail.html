@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>BootPIERE 1 | User Detail</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <div th:replace="fragments/header :: header"/>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>Details
+                <small>User</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a th:href="@{/user/}" class="btn btn-warning btn-flat btn-flat btn-xs">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a th:href="@{/user/add/{id}/role(id=${user.id})}" class="btn btn-primary btn-flat btn-flat btn-xs" sec:authorize="hasAuthority('ADMIN')">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-4">
+
+                    <!-- Profile Image -->
+                    <div class="box box-primary">
+                        <div class="box-body box-profile">
+                            <h3 class="profile-username text-center"th:text="${user.name}"></h3>
+                            <p class="text-muted text-center"></p>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                    <!-- About Me Box -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Details</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <strong><i class="fa fa-envelope-o margin-r-5"></i> Email</strong>
+                            <p class="text-muted" th:text="${user.email}"></p>
+                            <hr>
+
+                            <strong><i class="fa fa-check margin-r-5"></i> Active</strong>
+                            <p th:text="${user.active} ? 'enable' : 'disable'"></p>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-8">
+
+                    <div class="nav-tabs-custom">
+                        <div class="tab-content">
+                            <div class="box-body table-responsive">
+                                <table id="tableFull" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <td class="text-center">Name</td>
+                                        <td>Actions</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="role : ${userRoles}">
+                                        <td th:text="${role.name}"></td>
+                                        <td align="center">
+                                            <a class="btn btn-danger btn-flat btn-xs" th:href="@{/user/delete/{id}/role(id=${role.id})}" sec:authorize="hasAuthority('ADMIN')">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="fragments/copyright :: copyright"/>
+
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>
