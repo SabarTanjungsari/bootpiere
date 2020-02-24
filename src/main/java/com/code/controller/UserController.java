@@ -1,7 +1,8 @@
 package com.code.controller;
 
-import com.code.exception.RecordNotFoundException;
+import com.code.model.Role;
 import com.code.model.User;
+import com.code.service.RoleService;
 import com.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/"})
+    @Autowired
+    private RoleService roleService;
+
+    @RequestMapping(value = {"", "/"})
     public String getAlluser(Model model) {
         List<User> userList = userService.getAllUser();
         model.addAttribute("userList", userList);
@@ -31,7 +35,9 @@ public class UserController {
     }
 
     @RequestMapping(path = {"/add", "/edit/{id}"})
-    public String addOrEdituser(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
+    public String addOrEdituser(Model model, @PathVariable("id") Optional<Long> id)  {
+        List<Role> roleList = roleService.getAllRole();
+        model.addAttribute("roleList", roleList);
         if(id.isPresent()){
             User user = userService.getUserById(id.get());
             model.addAttribute("user", user);
@@ -46,7 +52,7 @@ public class UserController {
     @RequestMapping(path = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute @Valid User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            System.out.println("BINDING RESULT ERROR");
+            System.out.println(bindingResult);
             System.out.println(user.isActive());
             return "userForm";
         } else {
@@ -58,7 +64,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/delete/{id}")
-    public  String deleteuserById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public  String deleteuserById(Model model, @PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/user/";
     }

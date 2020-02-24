@@ -1,7 +1,7 @@
 package com.code.service;
 
-import com.code.exception.RecordNotFoundException;
 import com.code.model.Role;
+import com.code.model.User;
 import com.code.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,13 +28,12 @@ public class RoleService {
         }
     }
 
-    public Role getRoleById(Long id) throws RecordNotFoundException {
+    public Role getRoleById(Long id) {
         Optional<Role> role = roleRepository.findById(id);
         if (role.isPresent()) {
             return role.get();
-        } else {
-            throw new RecordNotFoundException("No role record exist for given id");
         }
+        return new Role();
     }
 
     public Role saveRole(Role newRole) {
@@ -58,12 +57,10 @@ public class RoleService {
         }
     }
 
-    public void deleteRoleById(Long id) throws RecordNotFoundException {
+    public void deleteRoleById(Long id) {
         Optional<Role> role = roleRepository.findById(id);
         if (role.isPresent()) {
             roleRepository.deleteById(id);
-        } else {
-            throw new RecordNotFoundException("No employee record exist for given id");
         }
     }
 }

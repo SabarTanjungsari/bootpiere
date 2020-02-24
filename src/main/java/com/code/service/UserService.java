@@ -1,6 +1,5 @@
 package com.code.service;
 
-import com.code.exception.RecordNotFoundException;
 import com.code.model.Role;
 import com.code.model.User;
 import com.code.repository.RoleRepository;
@@ -29,20 +28,17 @@ public class UserService {
         }
     }
 
-    public User getUserById(Long id) throws RecordNotFoundException {
+    public User getUserById(Long id) {
         Optional<User> user = userReporitory.findById(id);
         if (user.isPresent()) {
             return user.get();
-        } else {
-            throw new RecordNotFoundException("No User record exist for given id");
         }
+        return new User();
     }
 
     public User saveUser(User newUser) {
         if (newUser.getId() == null) {
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
-            Role userRole = roleRepository.findByName("ADMIN");
-            newUser.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
             newUser = userReporitory.save(newUser);
             return newUser;
         } else {
@@ -54,28 +50,20 @@ public class UserService {
                 updateUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
                 updateUser.setActive(newUser.isActive());
 
-                Role userRole = roleRepository.findByName("ADMIN");
-                newUser.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
                 newUser = userReporitory.save(newUser);
                 return newUser;
             } else {
                 newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
-                Role userRole = roleRepository.findByName("ADMIN");
-                newUser.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
                 newUser = userReporitory.save(newUser);
                 return newUser;
             }
         }
     }
 
-    public void deleteUserById(Long id) throws RecordNotFoundException {
+    public void deleteUserById(Long id){
         Optional<User> User = userReporitory.findById(id);
         if (User.isPresent()) {
             userReporitory.deleteById(id);
-        } else {
-            throw new RecordNotFoundException("No employee record exist for given id");
         }
     }
 

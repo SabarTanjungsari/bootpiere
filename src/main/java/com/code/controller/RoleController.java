@@ -1,6 +1,5 @@
 package com.code.controller;
 
-import com.code.exception.RecordNotFoundException;
 import com.code.model.Role;
 import com.code.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class RoleController {
     }
 
     @RequestMapping(path = {"/add", "/edit/{id}"})
-    public String addOrEditRole(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
+    public String addOrEditRole(Model model, @PathVariable("id") Optional<Long> id)  {
         if(id.isPresent()){
             Role role = roleService.getRoleById(id.get());
             model.addAttribute("role", role);
@@ -57,7 +56,7 @@ public class RoleController {
     }
 
     @RequestMapping(path = "/delete/{id}")
-    public  String deleteRoleById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public  String deleteRoleById(Model model, @PathVariable("id") Long id) {
         roleService.deleteRoleById(id);
         return "redirect:/role/";
     }
