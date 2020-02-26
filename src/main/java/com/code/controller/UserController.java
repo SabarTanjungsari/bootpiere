@@ -53,11 +53,8 @@ public class UserController {
     @RequestMapping(path = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute @Valid User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            System.out.println(bindingResult);
-            System.out.println(user.isActive());
             return "userForm";
         } else {
-            System.out.println(user.isActive());
             userService.saveUser(user);
         }
 

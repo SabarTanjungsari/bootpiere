@@ -50,7 +50,7 @@ public class UserService {
                 updateUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
                 updateUser.setActive(newUser.isActive());
 
-                newUser = userReporitory.save(newUser);
+                newUser = userReporitory.save(updateUser);
                 return newUser;
             } else {
                 newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
