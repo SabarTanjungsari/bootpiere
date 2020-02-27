@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ad_user")
-public class User extends Auditable<String> {
+public class User extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ad_user_id")
