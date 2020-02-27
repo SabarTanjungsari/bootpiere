@@ -1,17 +1,20 @@
-INSERT INTO ad_role (description, name)
-    VALUES ('Role from Administrator', 'ADMIN');
-INSERT INTO ad_role (description, name)
-    VALUES ('Role from User', 'USER');
-INSERT INTO ad_role (description, name)
-    VALUES ('Role from Accounting', 'ACCOUNTING');
+# CREATE Login Roles "bootpiere"
+# CREATE DATABASE bootpiere WITH Owner bootpiere
 
-INSERT INTO ad_user (email, name, password)
-    VALUES ('admin@bootpiere.com', 'admin', '$2a$10$0R6hevVx8mCtdf22EAewU.GRz0vuTPdtI/LDLJDi6zeeongjKIXjC');
-INSERT INTO ad_user (email, name, password)
-    VALUES ('user@bootpiere.com', 'user', '$2a$10$1xnOIVmThfqwznpL7VO9p.rpymQP6B5nHB1kyVj1ASs4IUUAXcpNq');
+INSERT INTO ad_role (description, name, created, createdby, updated, updatedby)
+    VALUES ('Role from Administrator', 'ADMIN', now(), 1, now(), 1);
+INSERT INTO ad_role (description, name, created, createdby, updated, updatedby)
+    VALUES ('Role from User', 'USER', now(), 1, now(), 1);
+INSERT INTO ad_role (description, name, created, createdby, updated, updatedby)
+    VALUES ('Role from Accounting', 'ACCOUNTING', now(), 1, now(), 1);
 
+INSERT INTO ad_user(email, name, password, created, createdby, updated, updatedby)
+    VALUES ('bootpiere@bootpiere.com', 'bootpiere', '$2a$10$35kpqKu8Ry0oTq2Z2deNg.Hc3dsclsi1luGclF6JGFqTxcjdyZ.Km',
+            now(), 1, now(), 1);
 
 INSERT INTO user_role (ad_user_id, ad_role_id)
     VALUES (1, 1);
 INSERT INTO user_role (ad_user_id, ad_role_id)
-    VALUES (2, 2);
+    VALUES (1, 2);
+INSERT INTO user_role (ad_user_id, ad_role_id)
+    VALUES (1, 3);

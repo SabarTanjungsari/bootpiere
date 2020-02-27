@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.UUID;
+
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class BootpiereApplication {
@@ -16,7 +18,7 @@ public class BootpiereApplication {
     }
 
     @Bean
-    public AuditorAware<String> auditorAware() {
+    public AuditorAware<UUID> auditorAware() {
         return new AuditorAwareImpl();
     }
 }
