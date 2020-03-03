@@ -21,7 +21,7 @@ import java.util.Set;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
+    
     @Autowired
     private UserService userService;
 
@@ -53,6 +53,8 @@ public class UserController {
     @RequestMapping(path = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute @Valid User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
+            List<Role> roleList = roleService.getAllRole();
+            model.addAttribute("roleList", roleList);
             return "userForm";
         } else {
             userService.saveUser(user);

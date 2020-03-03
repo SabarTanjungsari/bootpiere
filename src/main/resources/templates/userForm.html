@@ -42,7 +42,7 @@
                         <div class="col-md-6 col-md-offset-3">
                             <form th:action="@{/user/save}" th:object="${user}" method="post">
                                 <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error' : ''">
-                                    <label class="control-label" for="name">Username</label>
+                                    <label class="control-label" for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"  th:field="*{name}" placeholder="Enter Name">
                                     <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                                 </div>
@@ -53,26 +53,32 @@
                                 </div>
                                 <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error' : ''">
                                     <label class="control-label" for="name">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password"  th:field="*{password}" placeholder="Enter password">
+                                    <input type="password" class="form-control" id="password" name="password"  th:field="*{password}" autocomplete="new-password">
                                     <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                </div>
+                                <div class="form-group" th:classappend="${#fields.hasErrors('passwordConf')} ? 'has-error' : ''">
+                                    <label class="control-label" for="passwordConf">Password Confirmation</label>
+                                    <input type="password" class="form-control" id="passwordConf"  name="passwordConf"  th:field="*{passwordConf}" autocomplete="new-password">
+                                    <span class="help-block" id='message'></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Role</label>
                                     <select th:field="*{roles}" class="form-control select2">
                                         <option th:each="roles: ${roleList}" th:value="${roles.getId()}" th:text="${roles.getName()}" />
                                     </select>
-                                <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error' : ''">
-                                    <label class="control-label" for="name">Active</label>
+                                </div>
+                                <div class="form-group" th:classappend="${#fields.hasErrors('active')} ? 'has-error' : ''">
+                                    <label class="control-label" for="active">Active</label>
                                     <input type="checkbox" class="icheckbox_minimal-blue" name="active"  th:field="*{active}">
                                     <span class="help-block" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></span>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-4">
-                                        <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                                        <button type="submit" id="submit" class="btn btn-primary btn-block btn-flat" disabled>Register</button>
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-xs-4">
-                                        <button type="reset" class="btn btn-default btn-block btn-flat">Reset</button>
+                                        <button type="reset" id="reset" class="btn btn-default btn-block btn-flat">Reset</button>
                                     </div>
                                     <!-- /.col -->
                                     <input type="hidden" id="id" th:field="*{id}"/>

@@ -31,6 +31,9 @@ public class User extends Auditable {
     @NotEmpty(message = "*Please provide your password")
     private String password;
 
+    @Transient
+    private String passwordConf;
+
     @Column(name = "Isactive", nullable = false, columnDefinition = "boolean default true")
     private boolean active;
 
@@ -84,5 +87,13 @@ public class User extends Auditable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getPasswordConf() {
+        return passwordConf;
+    }
+
+    public void setPasswordConf(String passwordConf) {
+        this.passwordConf = passwordConf;
     }
 }
