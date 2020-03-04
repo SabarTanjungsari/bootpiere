@@ -26,10 +26,15 @@ public class User extends Auditable {
     @NotEmpty(message = "*Please provide an email")
     private String email;
 
+    @Column(name = "emailPassword")
+    private String emailpassword;
+
     @Column(name = "password")
     @Length(min = 3, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     private String password;
+
+    private String passwordEncrypt;
 
     @Transient
     private String passwordConf;
@@ -95,5 +100,21 @@ public class User extends Auditable {
 
     public void setPasswordConf(String passwordConf) {
         this.passwordConf = passwordConf;
+    }
+
+    public String getEmailpassword() {
+        return emailpassword;
+    }
+
+    public void setEmailpassword(String emailpassword) {
+        this.emailpassword = emailpassword;
+    }
+
+    public String getPasswordEncrypt() {
+        return passwordEncrypt;
+    }
+
+    public void setPasswordEncrypt(String passwordEncrypt) {
+        this.passwordEncrypt = passwordEncrypt;
     }
 }

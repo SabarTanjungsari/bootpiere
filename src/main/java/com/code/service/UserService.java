@@ -37,8 +37,12 @@ public class UserService {
     }
 
     public User saveUser(User newUser) {
+        String encodedString = Base64.getEncoder().encodeToString(newUser.getEmailpassword().getBytes());
+        String encryptPassword = Base64.getEncoder().encodeToString(newUser.getPassword().getBytes());
         if (newUser.getId() == null) {
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+            newUser.setEmailpassword(encodedString);
+            newUser.setPasswordEncrypt(encryptPassword);
             newUser = userReporitory.save(newUser);
             return newUser;
         } else {
@@ -48,12 +52,16 @@ public class UserService {
                 updateUser.setName(newUser.getName());
                 updateUser.setEmail(newUser.getEmail());
                 updateUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+                updateUser.setEmailpassword(encodedString);
+                updateUser.setPasswordEncrypt(encryptPassword);
                 updateUser.setActive(newUser.isActive());
 
                 newUser = userReporitory.save(updateUser);
                 return newUser;
             } else {
                 newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+                newUser.setEmailpassword(encodedString);
+                newUser.setPasswordEncrypt(encryptPassword);
                 newUser = userReporitory.save(newUser);
                 return newUser;
             }

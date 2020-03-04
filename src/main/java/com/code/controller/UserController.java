@@ -2,18 +2,20 @@ package com.code.controller;
 
 import com.code.model.Role;
 import com.code.model.User;
+import com.code.service.MailService;
 import com.code.service.RoleService;
 import com.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    MailService mailService;
 
     @RequestMapping(value = {"", "/"})
     public String getAlluser(Model model) {
@@ -58,6 +63,15 @@ public class UserController {
             return "userForm";
         } else {
             userService.saveUser(user);
+
+            Base64.Decoder decoder = Base64.getDecoder();
+            String pwdDecode = new String(decoder.decode(user.getPasswordEncrypt()));
+            String sendTo = user.getEmail();
+            String mailSubject = "User Registration Information !";
+            String mailBody = "Your User : " + user.getName() + "\nYour Password : " + pwdDecode;
+
+            mailService.sendMail(mailSubject, mailBody, sendTo);
+
         }
 
         return "redirect:/user/";
@@ -79,4 +93,5 @@ public class UserController {
         userService.deleteUserById(id);
         return "redirect:/user/";
     }
+
 }
