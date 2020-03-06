@@ -1,11 +1,13 @@
 package com.code.model;
 
+import com.code.audit.Audit;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "ad_role")
-public class Role {
+public class Role extends Audit<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ad_role_id")

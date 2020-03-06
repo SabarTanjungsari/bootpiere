@@ -1,12 +1,14 @@
 package com.code.model;
 
+import com.code.audit.Audit;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "m_product")
-public class Product  {
+public class Product extends Audit<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

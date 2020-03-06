@@ -1,5 +1,6 @@
 package com.code.model;
 
+import com.code.audit.Audit;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ad_user")
-public class User {
+public class User extends Audit<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ad_user_id")
