@@ -32,7 +32,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/static/**", "/bootstrap/**", "/css/**","/font-awesome/**",
                         "/img/**", "/ionicons/**", "/js/**", "/datatables", "/icheck/**").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/user/**").hasAuthority("ADMIN")
+                .antMatchers("/user/**", "/product/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
         http
                 .formLogin()

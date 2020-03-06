@@ -1,6 +1,5 @@
 package com.code.model;
 
-import com.code.audit.Auditable;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -10,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ad_user")
-public class User extends Auditable {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ad_user_id")

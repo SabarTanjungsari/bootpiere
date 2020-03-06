@@ -2,13 +2,15 @@ package com.code.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
-@Table(name = "ad_role")
-public class Role {
+@Table(name = "m_product_category")
+public class ProductCategory  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ad_role_id")
+    @Column(name = "m_product_category_id")
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
@@ -21,11 +23,17 @@ public class Role {
     @Column(name = "Isactive", nullable = false, columnDefinition = "boolean default true")
     private boolean active;
 
-    public long getId() {
+    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL)
+    private Set<Product> products;
+
+    public ProductCategory() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,5 +59,13 @@ public class Role {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

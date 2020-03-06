@@ -64,13 +64,13 @@ public class UserController {
         } else {
             userService.saveUser(user);
 
-            Base64.Decoder decoder = Base64.getDecoder();
-            String pwdDecode = new String(decoder.decode(user.getPasswordEncrypt()));
-            String sendTo = user.getEmail();
-            String mailSubject = "User Registration Information !";
-            String mailBody = "Your User : " + user.getName() + "\nYour Password : " + pwdDecode;
+            //Base64.Decoder decoder = Base64.getDecoder();
+            //String pwdDecode = new String(decoder.decode(user.getPasswordEncrypt()));
+            //String sendTo = user.getEmail();
+            //String mailSubject = "User Registration Information !";
+            //String mailBody = "Your User : " + user.getName() + "\nYour Password : " + pwdDecode;
 
-            mailService.sendMail(mailSubject, mailBody, sendTo);
+            //mailService.sendMail(mailSubject, mailBody, sendTo);
 
         }
 

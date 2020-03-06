@@ -2,13 +2,15 @@ package com.code.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "ad_role")
-public class Role {
+@Table(name = "m_product")
+public class Product  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ad_role_id")
+    @Column(name = "m_product_id")
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
@@ -20,6 +22,14 @@ public class Role {
 
     @Column(name = "Isactive", nullable = false, columnDefinition = "boolean default true")
     private boolean active;
+
+    @Column(name = "pricelist", nullable = false)
+    @Size(min = 1)
+    private float pricelist;
+
+    @ManyToOne
+    @JoinColumn(name = "m_product_category_id")
+    private ProductCategory productCategory;
 
     public long getId() {
         return id;
@@ -51,5 +61,13 @@ public class Role {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 }

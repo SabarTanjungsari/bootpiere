@@ -353,7 +353,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="active"><a th:href="@{/user}"><i class="fa fa-circle-o"></i> User</a></li>
-                        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+
+                        <li><a th:href="@{/product/category}"><i class="fa fa-product-hunt"></i> Product Category</a></li>
                     </ul>
                 </li>
                 <li class="treeview" sec:authorize="hasAuthority('USER')">

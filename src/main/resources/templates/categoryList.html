@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>BootPIERE 1 | Category</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <div th:replace="fragments/header :: header"/>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                <div class="pull-left">
+                    <a th:href="@{/product/category/add}" class="btn btn-primary btn-flat btn-xs">
+                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                    </a>
+                </div>
+                Category
+                <small>Control category</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a th:href="@{/}"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Category</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-striped" id="tableFull">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Description</td>
+                                <td>Active</td>
+                                <td align="center">Actions</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="category : ${categoryList}">
+                                <td th:text="${category.name}"></td>
+                                <td th:text="${category.description}"></td>
+                                <td th:text="${category.active} ? 'enable' : 'disable'"></td>
+                                <td align="center">
+                                    <a class="btn btn-info btn-flat btn-xs" th:href="@{/product/category/edit/{id}(id=${category.id})}">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-primary btn-flat btn-xs" th:href="@{/product/category/detail/{id}(id=${category.id})}">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-flat btn-xs" th:href="@{/product/category/delete/{id}(id=${category.id})}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="fragments/copyright :: copyright"/>
+
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>
