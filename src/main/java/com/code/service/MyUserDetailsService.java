@@ -2,7 +2,6 @@ package com.code.service;
 
 import com.code.model.Role;
 import com.code.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +18,11 @@ import java.util.Set;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public MyUserDetailsService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     @Transactional
@@ -32,7 +34,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
-                user.isActive(), true, true, true, authorities);
+                user.isActive(), true, true, user.isActive(), authorities);
     }
 
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {

@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "m_product")
-public class Product extends Audit<String> {
+public class Product extends Audit<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

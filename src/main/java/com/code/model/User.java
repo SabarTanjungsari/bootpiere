@@ -10,13 +10,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ad_user")
-public class User extends Audit<String> {
+public class User extends Audit<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ad_user_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     @Length(min = 3, message = "*Your name must have at least 5 characters")
     @NotEmpty(message = "*Please provide a user name")
     private String name;

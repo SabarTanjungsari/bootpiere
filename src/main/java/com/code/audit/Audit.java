@@ -11,12 +11,12 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Audit <T>{
+public abstract class Audit <U>{
     @CreatedBy
-    protected T createdby;
+    protected U createdby;
 
     @LastModifiedBy
-    protected T updatedby;
+    protected U updatedby;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -26,19 +26,19 @@ public abstract class Audit <T>{
     @Temporal(TemporalType.TIMESTAMP)
     protected Date updated;
 
-    public T getCreatedby() {
+    public U getCreatedby() {
         return createdby;
     }
 
-    public void setCreatedby(T createdby) {
+    public void setCreatedby(U createdby) {
         this.createdby = createdby;
     }
 
-    public T getUpdatedby() {
+    public U getUpdatedby() {
         return updatedby;
     }
 
-    public void setUpdatedby(T updatedby) {
+    public void setUpdatedby(U updatedby) {
         this.updatedby = updatedby;
     }
 
