@@ -1,6 +1,5 @@
 package com.code.service;
 
-import com.code.exception.RecordNotFoundException;
 import com.code.model.ProductCategory;
 import com.code.repository.ProductCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +24,12 @@ public class ProductCategoryService {
         }
     }
 
-    public ProductCategory getCategoryById(Long id) throws RecordNotFoundException {
+    public ProductCategory getCategoryById(Long id) {
         Optional<ProductCategory> category = categoryRepository.findById(id);
         if (category.isPresent()) {
             return category.get();
         } else {
-            throw new RecordNotFoundException("No employee record exist for given id");
+            return new ProductCategory();
         }
     }
 
@@ -57,15 +56,13 @@ public class ProductCategoryService {
         }
     }
 
-    public void deleteById(Long id) throws RecordNotFoundException
+    public void deleteById(Long id)
     {
         Optional<ProductCategory> category = categoryRepository.findById(id);
 
         if(category.isPresent())
         {
             categoryRepository.deleteById(id);
-        } else {
-            throw new RecordNotFoundException("No employee record exist for given id");
         }
     }
 }

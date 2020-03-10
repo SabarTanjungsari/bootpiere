@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>BootPIERE 1 | Home</title>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>BootPIERE 1 | User</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -17,29 +16,38 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                <div class="pull-left">
-                    <a th:href="@{/user/add}" class="btn btn-primary btn-flat btn-xs">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i>
-                    </a>
-                </div>
-                User
-                <small>Control user</small>
+            <h1 th:text="${statusPage}">
             </h1>
             <ol class="breadcrumb">
-                <li><a th:href="@{/}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">User</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Error Page</a></li>
+                <li class="active" th:text="${statusCode}"></li>
             </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
-            <div class="box text-danger">
-                <h1>Something went wrong!</h1>
-                <p>The link you followed may be broken, or the page may have been removed.</p>
+            <div class="error-page">
+                <h2 class="headline text-red" th:text="${statusCode}"></h2>
+
+                <div class="error-content">
+                    <h3><i class="fa fa-warning text-red"></i> Oops! Page Error.</h3>
+
+                    <p>
+                        We could not find the page you were looking for.
+                        Meanwhile, you may
+                        <a th:href="@{/home}">return to dashboard</a>
+                        or try using the search form.
+                    </p>
+
+                </div>
+                <!-- /.error-content -->
             </div>
+            <!-- /.error-page -->
         </section>
+        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 

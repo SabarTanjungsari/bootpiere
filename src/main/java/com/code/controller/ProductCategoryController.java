@@ -1,15 +1,10 @@
 package com.code.controller;
 
-import com.code.exception.RecordNotFoundException;
 import com.code.model.ProductCategory;
 import com.code.service.ProductCategoryService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +28,7 @@ public class ProductCategoryController {
     }
 
     @RequestMapping(path = {"/add", "/edit/{id}"})
-    public String addOrEdit (Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
+    public String addOrEdit (Model model, @PathVariable("id") Optional<Long> id) {
         if(id.isPresent()) {
             ProductCategory category = categoryService.getCategoryById(id.get());
             model.addAttribute("category", category);
@@ -53,7 +48,6 @@ public class ProductCategoryController {
 
     @RequestMapping(path = "/delete/{id}")
     public String deleteById(Model model, @PathVariable("id") Long id)
-            throws RecordNotFoundException
     {
         categoryService.deleteById(id);
         return "redirect:/product/category";
