@@ -1,8 +1,6 @@
 package com.code.controller;
 
-import org.hibernate.validator.cfg.defs.Mod10CheckDef;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,4 +39,5 @@ public class PageController implements ErrorController {
     public String getErrorPath() {
         return PATH;
     }
+
 }

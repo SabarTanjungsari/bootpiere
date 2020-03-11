@@ -4,6 +4,7 @@ import com.code.audit.Audit;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,7 @@ public class ProductCategory extends Audit<String> {
     @Column(name = "m_product_category_id")
     private Long id;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotEmpty(message = "*Please provide a name")
     @Column(name = "name", unique = true)
     private String name;
 

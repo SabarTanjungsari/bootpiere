@@ -13,10 +13,10 @@ import java.util.Optional;
 public class ProductCategoryService {
 
     @Autowired
-    ProductCategoryRepository categoryRepository;
+    ProductCategoryRepository productCategoryRepository;
 
     public List<ProductCategory> getAll() {
-        List<ProductCategory> categoryList = (List<ProductCategory>) categoryRepository.findAll();
+        List<ProductCategory> categoryList = (List<ProductCategory>) productCategoryRepository.findAll();
         if (categoryList.size() > 0) {
             return categoryList;
         } else {
@@ -25,7 +25,7 @@ public class ProductCategoryService {
     }
 
     public ProductCategory getCategoryById(Long id) {
-        Optional<ProductCategory> category = categoryRepository.findById(id);
+        Optional<ProductCategory> category = productCategoryRepository.findById(id);
         if (category.isPresent()) {
             return category.get();
         } else {
@@ -35,21 +35,21 @@ public class ProductCategoryService {
 
     public ProductCategory saveCategory (ProductCategory entity) {
         if (entity.getId() == null) {
-            entity = categoryRepository.save(entity);
+            entity = productCategoryRepository.save(entity);
             return entity;
         } else {
-            Optional<ProductCategory> category = categoryRepository.findById(entity.getId());
+            Optional<ProductCategory> category = productCategoryRepository.findById(entity.getId());
             if (category.isPresent()) {
                 ProductCategory newCategory = category.get();
                 newCategory.setName(entity.getName());
                 newCategory.setDescription(entity.getDescription());
                 newCategory.setActive(entity.isActive());
 
-                newCategory = categoryRepository.save(newCategory);
+                newCategory = productCategoryRepository.save(newCategory);
 
                 return newCategory;
             } else {
-                entity = categoryRepository.save(entity);
+                entity = productCategoryRepository.save(entity);
 
                 return entity;
             }
@@ -58,11 +58,11 @@ public class ProductCategoryService {
 
     public void deleteById(Long id)
     {
-        Optional<ProductCategory> category = categoryRepository.findById(id);
+        Optional<ProductCategory> category = productCategoryRepository.findById(id);
 
         if(category.isPresent())
         {
-            categoryRepository.deleteById(id);
+            productCategoryRepository.deleteById(id);
         }
     }
 }
