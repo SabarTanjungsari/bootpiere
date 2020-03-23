@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<div th:fragment="message">
+    <div id="message" class="alert alert-success alert-dismissible" th:if="${success}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <i class="icon fa fa-check-square-o" th:text="${success}"> </i>
+    </div>
+
+    <div id="message" class="alert alert-danger alert-dismissible" th:if="${name}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" th:text="${name}"></button>
+    </div>
+</div>
+
+</body>
+</html>

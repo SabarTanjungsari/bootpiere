@@ -57,6 +57,7 @@ public class ProductCategoryController {
                     productCategoryService.saveCategory(productCategory);
                 } catch (DataIntegrityViolationException e){
                     bindingResult.rejectValue("name", "error.productCategory", "Name of category already exists");
+
                     return "categoryForm";
                 }
             }
